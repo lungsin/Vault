@@ -31,7 +31,7 @@ def main():
         handle(connection, client_address)
         
         
-        
+# read commands and build responses for each of them.
 def handle(connection, client_address):
     print('connection from', client_address)
     
@@ -45,14 +45,16 @@ def handle(connection, client_address):
     
     print('done')
     connection.close()
-    
+
+# read only ONE command from connection socket   
 def read_command(conn_file):
     print('waiting for command')
     line = conn_file.readline()
     print(f"here is : {line}")
     if (line == '\n'): return None
     return json.loads(line)
-    
+
+# generate a json response from a command.     
 def process_command(command):
     response = {}
     response["id"] = command["id"]
@@ -68,6 +70,7 @@ def process_command(command):
     response["tx"] = tx
     return json.dumps(response).encode()
 
+# generate Tx from given input
 def generateTx(from_addr, to_addr, amount, private_key):
     from web3 import Web3, HTTPProvider
     
@@ -90,7 +93,11 @@ def generateTx(from_addr, to_addr, amount, private_key):
     return w3.toHex(signed.rawTransaction)
 
 
-
+# this function is for testing purposes, It tests the correctness of generateTx() method
+# Let   X = 30000000000000,
+# It sends X Wei from addr1 to addr2
+# addr1 will pay X Wei
+# addr2 will receive (X - transferFee) Wei
 def testing():
     addr1 = "0x1348E7E2b73993bEE501aa4413C193d3722f2b60"
     addr2 = "0xdD8dA64825a55b3339fccEEE4c0443174517A666"

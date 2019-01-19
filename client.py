@@ -1,4 +1,3 @@
-# socket_echo_client_uds.py
 import socket
 import sys
 
@@ -16,9 +15,6 @@ for testfile in testfiles:
     except socket.error as msg:
         print(msg)
         sys.exit(1)
-
-
-
 
     try:
         with open(testfile, 'rb') as f:
