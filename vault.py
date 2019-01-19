@@ -54,20 +54,54 @@ def process_command(command):
     response = {}
     response["id"] = command["id"]
     
-    # from_addr = command["from_address"]
-    # to_addr   = command["to_address"]
-    # amount    = command["amount"]
+    from_addr = command["from_address"]
+    to_addr   = command["to_address"]
+    amount    = command["amount"]
     
-    # with open(f"{from_addr}") as f:
-    #     private_key = f.read()
+    with open(f"{from_addr}", 'r') as f:
+        private_key = f.read()
     
+    tx = generateTx(from_addr, to_addr, amount, private_key)
+    response["tx"] = tx
     return json.dumps(response).encode()
 
-# from web3 import Web3, IPCProvider
-# import sys
+def generateTx(from_addr, to_addr, amount, private_key):
+    from web3 import Web3, HTTPProvider
+    
+    endpoint = "https://ropsten.infura.io/v3/dbb2e3c355894aec995396e31bce9ba9"
+    w3 = Web3(HTTPProvider(endpoint))
+    
+    transaction = {
+        # 'from': from_addr,
+        'to': to_addr,
+        'value': amount,
+        'gasPrice': w3.eth.gasPrice,
+        'nonce': w3.eth.getTransactionCount(from_addr)
+    }
+    transaction['gas'] = w3.eth.estimateGas(transaction)
+    print(f"estimate cost = {transaction['gas'] * transaction['gasPrice']}")
+    transaction['value'] -= transaction['gas'] * transaction['gasPrice']
+    signed = w3.eth.account.signTransaction(transaction, private_key)
+    
+    # print(w3.eth.sendRawTransaction(signed.rawTransaction))
+    return w3.toHex(signed.rawTransaction)
 
-# path = sys.argv[1]
-# print(path)
-# w3 = Web3(IPCProvider(path))
 
-main()
+
+def testing():
+    addr1 = "0x1348E7E2b73993bEE501aa4413C193d3722f2b60"
+    addr2 = "0xdD8dA64825a55b3339fccEEE4c0443174517A666"
+    
+    with open(addr1, 'r') as f:
+        key1 = f.read()
+        
+    with open(addr2, 'r') as f:
+        key2 = f.read()
+    
+    print("key1 : " + key1)
+    print(key2)
+    amount = 30000000000000
+    print(generateTx(addr1, addr2, amount, key1))
+ 
+# main()   
+testing()
