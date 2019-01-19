@@ -1,8 +1,8 @@
-## Vault
+# Vault
 
 This is a test for applying `numoney` internship. The full problem statement is at `problem_statement.md`.
 
-# Some assumptions
+## Some assumptions
 1. I assume the unit for `amount` from the input is `Wei` (10^18 `Wei` = 1 `Ether`).
 
 2. I assume the input format is valid. My program doesn't check the validity of the input and might throw       exception if the input is not valid.
@@ -15,7 +15,7 @@ This is a test for applying `numoney` internship. The full problem statement is 
     4. broadcast the first transaction (`A` to `B`), now `A`'s nonce becomes `X + 1`
     5. broadcast the second transaction (`A` to `C`). there is a mismatch, `A`'s nonce is `X + 1`, but in the transaction record, it is `X`. The transaction is invalid and cannot be broadcasted.
 
-# How to run
+## How to run
 1. activate virtual environment:
 
     ```
@@ -33,7 +33,7 @@ This is a test for applying `numoney` internship. The full problem statement is 
     python vault.py <path>
     ```
 
-# Several Tests I make
+## Several Tests I make
 1. I made two ropsten ethereum accounts for testing purposes. As instructed in problem_statement.md, I put      the private key of each account in a file with the name of the corresponding address. The two files are:
 
     - 0x1348E7E2b73993bEE501aa4413C193d3722f2b60
