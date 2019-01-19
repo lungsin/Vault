@@ -9,11 +9,10 @@ This is a test for applying `numoney` internship. The full problem statement is 
 
 3. I assume that the `Tx` response is not broadcasted immediately. There are some issues with multiple         commands within one connection. Consider this scenario:
     
-    1. `A`'s nonce is initialy `X`
-    2. `A` sends transaction to `B`          (in the transaction record, `A`'s nonce is `X`)
-    3. `A` sends other transaction to `C`    (in the transaction record, `A`'s nonce is also `X` because the first transaction is not broadcasted)
-    4. broadcast the first transaction (`A` to `B`), now `A`'s nonce becomes `X + 1`
-    5. broadcast the second transaction (`A` to `C`). there is a mismatch, `A`'s nonce is `X + 1`, but in the transaction record, it is `X`. The transaction is invalid and cannot be broadcasted.
+    1. `A` sends transaction to `B`          (in the transaction record, `A`'s nonce is `X`)
+    2. `A` sends other transaction to `C`    (in the transaction record, `A`'s nonce is also `X` because the first transaction has not yet broadcasted)
+    3. broadcast the first transaction (`A` to `B`), now `A`'s nonce becomes `X + 1`
+    4. broadcast the second transaction (`A` to `C`). there is a mismatch, `A`'s nonce should be `X + 1`, but in the transaction record, it is `X`. The transaction is invalid and cannot be broadcasted.
 
 ## How to run
 1. activate virtual environment:
