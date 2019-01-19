@@ -4,8 +4,8 @@ import os
 import json
 
 def main():
-    # server_address = sys.argv[1]
-    server_address = './uds_test_socket'
+    server_address = sys.argv[1]
+    # server_address = './uds_test_socket'
 
     # Make sure the socket does not already exist
     try:
@@ -38,6 +38,7 @@ def handle(connection, client_address):
         command = read_command(conn_file)
         if (command is None): break
         response = process_command(command)
+        print(f"response : {response}")
         connection.sendall(response)
     
     print('done')
@@ -56,7 +57,7 @@ def process_command(command):
     
     from_addr = command["from_address"]
     to_addr   = command["to_address"]
-    amount    = command["amount"]
+    amount    = int(command["amount"])
     
     with open(f"{from_addr}", 'r') as f:
         private_key = f.read()
@@ -72,7 +73,7 @@ def generateTx(from_addr, to_addr, amount, private_key):
     w3 = Web3(HTTPProvider(endpoint))
     
     transaction = {
-        # 'from': from_addr,
+        'from': from_addr,
         'to': to_addr,
         'value': amount,
         'gasPrice': w3.eth.gasPrice,
@@ -99,9 +100,9 @@ def testing():
         key2 = f.read()
     
     print("key1 : " + key1)
-    print(key2)
+    print("key2 : " + key2)
     amount = 30000000000000
     print(generateTx(addr1, addr2, amount, key1))
  
-# main()   
-testing()
+main()   
+# testing()
