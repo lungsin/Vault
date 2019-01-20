@@ -1,7 +1,7 @@
 import socket
 import sys
 
-testfiles = ["query_one_time.json", "query_multiple_times.json"]
+testfiles = ["query_one_time.txt", "query_multiple_times.txt"]
 
 for testfile in testfiles:
     # Create a UDS socket
