@@ -29,7 +29,7 @@ This is a test for applying `numoney` internship. The full problem statement is 
     or alternatively
     
     ```
-    python vault.py <path>
+    python3 vault.py <path>
     ```
 
 ## Several Tests I make
@@ -42,5 +42,10 @@ This is a test for applying `numoney` internship. The full problem statement is 
     - query_one_time.txt
     - query_two_time.txt
     
-3. I make `client.py`. This python code will send test files through connection socket to `vault`.
+3. I make `client.py`. This python code will send test files through UDS socket to `vault`.
+    To use, run:
+    ```
+    python3 client.py <path>
+    ```
+    
     

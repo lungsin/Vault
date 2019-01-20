@@ -8,7 +8,8 @@ for testfile in testfiles:
     sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
 
     # Connect the socket to the port where the server is listening
-    server_address = './uds_test_socket'
+    # server_address = './uds_test_socket'
+    server_address = sys.argv[1]
     print('connecting to {}'.format(server_address))
     try:
         sock.connect(server_address)
