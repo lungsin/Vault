@@ -12,7 +12,7 @@ This is a test for applying `numoney` internship. The full problem statement is 
     1. `A` sends transaction to `B`          (in the transaction record, `A`'s nonce is `X`)
     2. `A` sends other transaction to `C`    (in the transaction record, `A`'s nonce is also `X` because the first transaction has not yet broadcasted)
     3. broadcast the first transaction (`A` to `B`), now `A`'s nonce becomes `X + 1`
-    4. broadcast the second transaction (`A` to `C`). there is a mismatch, `A`'s nonce should be `X + 1`, but in the transaction record, it is `X`. The transaction is invalid and cannot be broadcasted.
+    4. broadcast the second transaction (`A` to `C`). there is a mismatch, `A`'s nonce should be `X + 1`, but in the transaction record, it is `X`. The `Tx` is invalid and cannot be broadcasted.
 
 ## How to run
 1. activate virtual environment:
@@ -40,12 +40,24 @@ This is a test for applying `numoney` internship. The full problem statement is 
     
 2. I make two files as test datas:
     - query_one_time.txt
-    - query_two_time.txt
+    - query_multiple_times.txt
     
 3. I make `client.py`. This python code will send test files through UDS socket to `vault`.
-    To use, run:
-    ```
-    python3 client.py <path>
-    ```
+    To test, do the following:
+    1. run the vault program:
+        ```
+        ./vault <path>
+        ```
+    2. run client.py:
+        ```
+        python3 client.py <path>
+        ```
+        
+    3. for each command, client.py will receive a response in the form of:
+        ```
+        received <response>
+        ```
+        
+        broadcast `Tx` in the response to ropsten test network, then check the balance of the accounts involved.
     
     
