@@ -54,6 +54,7 @@ def read_command(conn_file):
     if (line == '\n'): return None
     return json.loads(line)
 
+from web3 import Web3, HTTPProvider
 # generate a json response from a command.     
 def process_command(command):
     response = {}
@@ -61,7 +62,7 @@ def process_command(command):
     
     from_addr = command["from_address"]
     to_addr   = command["to_address"]
-    amount    = int(command["amount"])
+    amount    = Web3.toWei(command["amount"], 'ether')
     
     with open(f"{from_addr}", 'r') as f:
         private_key = f.read()
@@ -72,8 +73,6 @@ def process_command(command):
 
 # generate Tx from given input
 def generateTx(from_addr, to_addr, amount, private_key):
-    from web3 import Web3, HTTPProvider
-    
     endpoint = "https://ropsten.infura.io/v3/dbb2e3c355894aec995396e31bce9ba9"
     w3 = Web3(HTTPProvider(endpoint))
     
@@ -94,10 +93,10 @@ def generateTx(from_addr, to_addr, amount, private_key):
 
 
 # this function is for testing purposes, It tests the correctness of generateTx() method
-# Let   X = 30000000000000,
-# It sends X Wei from addr1 to addr2
-# addr1 will pay X Wei
-# addr2 will receive (X - transferFee) Wei
+# Let   X = 0.003,
+# It sends X ether from addr1 to addr2
+# addr1 will pay X ether
+# addr2 will receive (X - transferFee) ether
 def testing():
     addr1 = "0x1348E7E2b73993bEE501aa4413C193d3722f2b60"
     addr2 = "0xdD8dA64825a55b3339fccEEE4c0443174517A666"
@@ -110,7 +109,7 @@ def testing():
     
     print("key1 : " + key1)
     print("key2 : " + key2)
-    amount = 30000000000000
+    amount = 0.003
     print(generateTx(addr1, addr2, amount, key1))
  
 main()   

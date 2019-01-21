@@ -3,7 +3,7 @@
 This is a test for applying `numoney` internship. The full problem statement is at `problem_statement.md`.
 
 ## Some assumptions
-1. I assume the unit for `amount` from the input is `Wei` (10<sup>18</sup> `Wei` = 1 `Ether`).
+1. I assume the unit for `amount` from the input is `ether`.
 
 2. I assume the input format is valid. My program doesn't check the validity of the input and might get run time error if the input is not valid.
 
