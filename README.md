@@ -5,9 +5,9 @@ This is a test for applying `numoney` internship. The full problem statement is 
 ## Some assumptions
 1. I assume the unit for `amount` from the input is `Wei` (10<sup>18</sup> `Wei` = 1 `Ether`).
 
-2. I assume the input format is valid. My program doesn't check the validity of the input and might throw       exception if the input is not valid.
+2. I assume the input format is valid. My program doesn't check the validity of the input and might get run time error if the input is not valid.
 
-3. I assume that the `Tx` response is not broadcasted immediately. There are some issues with multiple         commands within one connection. Consider this scenario:
+3. I assume that the `Tx` response is not broadcasted immediately. There are some issues with multiple         commands within one query. Consider this scenario:
     
     1. `A` sends transaction to `B`          (in the transaction record, `A`'s nonce is `X`)
     2. `A` sends other transaction to `C`    (in the transaction record, `A`'s nonce is also `X` because the first transaction has not yet broadcasted)
